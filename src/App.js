@@ -3,6 +3,22 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './Navbar/Navbar'
 import Card from './Card/Card'
+import Modal from 'react-modal';
+
+//custom style for react modal
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+Modal.setAppElement('#root');
+//index.html e noscript e div e root element er modhe add hochee tai eke root kore dilam
 
 function App() {
   const [guns, setGuns] = useState([]);
@@ -11,6 +27,14 @@ function App() {
   console.log(guns) //console.log hochee
   const [cart, setCart] = useState([])
   console.log(cart);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  function openModal() {
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
+  //use state es pashe react er part ta baad dsi
   // const handleAddToCart = (id) => {
   //   console.log(id); //add to cart e click korle showing
   // }
@@ -35,12 +59,14 @@ function App() {
     <div className="App">
       {/* ekhane grid dile jhamela hye jabe tai puro jinsh ta ekta div er modhe apply krbo */}
 
-      <Navbar></Navbar>
-      <div>
-        {
+      <Navbar cart={cart} openModal={openModal}></Navbar>
+
+      {/* <div>
+      {
           cart.map((item) => <h1 key={item.id}>{item.name}</h1>)
         }
-      </div>
+      </div> */}
+      {/* ei jinish ta ui te na dekhae modal er peter vitore dekhabo */}
 
       {
         // guns.map(gun => console.log(gun))
@@ -62,6 +88,23 @@ function App() {
 
         }
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <button onClick={closeModal}>Close</button>
+        <h1>
+          <div>
+            {
+              cart.map((item) => <h1 key={item.id}>{item.name}</h1>)
+            }
+          </div>
+          {/* select kore click korle ui te modal akare show hochee */}
+        </h1>
+      </Modal>
     </div>
   );
 }
