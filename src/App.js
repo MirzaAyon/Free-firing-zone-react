@@ -16,7 +16,7 @@ function App() {
   // }
   const handleAddToCart = (gun) => {
     console.log(gun); //add to cart e click korle showing
-    const newCart = [gun];
+    const newCart = [...cart, gun];
     console.log(newCart)
     setCart(newCart) //sudhu click korr por show hochee
   }
