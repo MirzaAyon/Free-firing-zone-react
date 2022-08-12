@@ -7,7 +7,19 @@ import Card from './Card/Card'
 function App() {
   const [guns, setGuns] = useState([]);
   // console.log(setGuns); //prothome evabe run korle empty arr dbe 
+  //initial value empty arr na dile undefined dibe tokhn porer line gula thik mto exicute hbe na , agei map korar try krbe
   console.log(guns) //console.log hochee
+  const [cart, setCart] = useState([])
+  console.log(cart);
+  // const handleAddToCart = (id) => {
+  //   console.log(id); //add to cart e click korle showing
+  // }
+  const handleAddToCart = (gun) => {
+    console.log(gun); //add to cart e click korle showing
+    const newCart = [gun];
+    console.log(newCart)
+    setCart(newCart) //sudhu click korr por show hochee
+  }
   useEffect(() => {
     //fetch er place e data.json  dileo hbe 
     fetch('https://raw.githubusercontent.com/mir-hussain/guns/main/data.json')
@@ -24,6 +36,11 @@ function App() {
       {/* ekhane grid dile jhamela hye jabe tai puro jinsh ta ekta div er modhe apply krbo */}
 
       <Navbar></Navbar>
+      <div>
+        {
+          cart.map((item) => <h1 key={item.id}>{item.name}</h1>)
+        }
+      </div>
 
       {
         // guns.map(gun => console.log(gun))
@@ -39,7 +56,7 @@ function App() {
       } */}
       <div className='card-container'>
         {
-          guns.map((gun) => <Card key={gun.id} gunData={gun}></Card>)
+          guns.map((gun) => <Card key={gun.id} gunData={gun} handleAddToCart={handleAddToCart}></Card>)
           //react e template string dewa lagena 
           //key dile error dibena 
 
